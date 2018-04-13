@@ -11,5 +11,4 @@ public class User {
     private String configuration;
     private String notification;
 
-
 }
