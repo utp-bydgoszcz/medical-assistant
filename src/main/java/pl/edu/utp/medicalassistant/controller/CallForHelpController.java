@@ -10,4 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(allowedHeaders = {"Access-Control-Allow-Origin", "*"})
 @Api(value = "Call For Help Controller", description = "REST API for calling for help.", tags = {"Medical Assistant Application"})
 public class CallForHelpController {
+
+
+
+
 }
