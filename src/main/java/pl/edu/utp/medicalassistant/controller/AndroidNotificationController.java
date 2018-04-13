@@ -1,6 +1,5 @@
 package pl.edu.utp.medicalassistant.controller;
 
-import com.oracle.javafx.jmx.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
