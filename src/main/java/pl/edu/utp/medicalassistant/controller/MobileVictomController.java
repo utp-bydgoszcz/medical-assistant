@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.utp.medicalassistant.service.MobileService;
 import pl.edu.utp.medicalassistant.model.EventType;
 import pl.edu.utp.medicalassistant.service.Mobileservice;
 
@@ -17,7 +18,7 @@ import pl.edu.utp.medicalassistant.service.Mobileservice;
 public class MobileVictomController {
 
     @Autowired
-    private Mobileservice mobileservice;
+    private MobileService mobileservice;
 
     @PostMapping("/get-information")
     public ResponseEntity getInformtion(){
