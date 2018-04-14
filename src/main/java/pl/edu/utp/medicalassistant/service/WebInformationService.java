@@ -56,7 +56,7 @@ public class WebInformationService {
 					}
 					
 					InformationType type = e.getType().toInformationType();
-					Information information = new Information(e.getLocation().getLatitude(), e.getLocation().getAccuracy(), e.getType().toString(), e.getDescription(), type, "", ip, ips);
+					Information information = new Information(e.getLocation().getLatitude(), e.getLocation().getLongitude(), e.getType().toString(), e.getDescription(), type, "", ip, ips);
 					informations.add(information);
 					
 						
