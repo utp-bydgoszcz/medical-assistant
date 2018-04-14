@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.edu.utp.medicalassistant.model.User;
 
 @RestController
 @RequestMapping("/give-help")
 @CrossOrigin(allowedHeaders = {"Access-Control-Allow-Origin", "*"})
 @Api(value = "Get Information Controller", description = "REST API for get information.", tags = {"Medical Assistant Application"})
 public class GetInformationController {
-
+	
     @GetMapping("/get-configuration")
     public ResponseEntity getConfiguration(){
         return new ResponseEntity("", HttpStatus.OK);

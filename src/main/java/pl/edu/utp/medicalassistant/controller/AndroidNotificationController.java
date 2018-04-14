@@ -26,7 +26,7 @@ public class AndroidNotificationController {
         this.androidPushNotificationService = androidPushNotificationService;
     }
 
-    @GetMapping(value = "/send",produces = "application/json")
+    @PostMapping(value = "/send",produces = "application/json")
     public ResponseEntity<String> send(@RequestBody HashMap<String,Object> sendData,
                                        @RequestParam String notificationTitle,@RequestParam String notificationData) throws JSONException {
 
@@ -37,14 +37,15 @@ public class AndroidNotificationController {
         JSONObject notification = new JSONObject();
         notification.put("title", notificationTitle);
         notification.put("body", notificationData);
+        notification.put("sound","default");
 
         JSONObject data = new JSONObject();
         data.put("data", sendData);
+        data.put("sound","default");
 
 
         body.put("notification", notification);
         body.put("data", data);
-
         HttpEntity<String> request = new HttpEntity<>(body.toString());
 
         CompletableFuture<String> pushNotification = androidPushNotificationService.send(request);

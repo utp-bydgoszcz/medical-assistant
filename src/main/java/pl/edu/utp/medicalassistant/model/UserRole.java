@@ -11,31 +11,10 @@ import org.springframework.security.core.GrantedAuthority;
 @AllArgsConstructor
 public class UserRole implements GrantedAuthority {
 
-	private Role role;
+	private String role;
 
 	@Override
 	public String getAuthority() {
-		return role.getId();
-	}
-
-	public static enum Role {
-		MEDICAL_RESCUER("dedical-rescuer", "Ratownik medyczny"),
-		RESCUER("rescuer", "Ratownik"),
-		PASSERBY("other-person", "Niewykwalifikowany");
-
-		@Getter
-		private final String id;
-		private final String name;
-
-		private Role(String id, String name) {
-			this.id = id;
-			this.name = name;
-		}
-
-		@Override
-		public String toString() {
-			return name;
-		}
-
+		return role;
 	}
 }

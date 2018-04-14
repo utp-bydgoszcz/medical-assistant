@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -37,6 +38,8 @@ public class FileServiceImpl implements FileService {
         InputStream inputStream = null;
 
         for (int x = 0; x < files.length; x++) {
+
+
 
         }
         return new ResponseEntity(listId, HttpStatus.OK);

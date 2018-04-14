@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
+
 	@Id
 	private String id;
 	private String name;
@@ -34,6 +35,7 @@ public class User {
 	private String rescuerDescription;
 	private String phoneNumber;
 	private UserConfig config;
+	private List<UserRole> authorites = new ArrayList<>();
 
 	public User(String username, String password) {
 		this.username = username;
@@ -43,4 +45,5 @@ public class User {
 	public String getDescription() {
 		return String.format("%s\nchoroby: %s\nprzyjmuje leki:%s", patientDescription, desees, medicines);
 	}
+
 }
