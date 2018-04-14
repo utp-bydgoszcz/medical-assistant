@@ -6,11 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.utp.medicalassistant.exception.NotEnoughDataException;
 import pl.edu.utp.medicalassistant.model.User;
-import pl.edu.utp.medicalassistant.service.UserService;
-
-import java.util.Optional;
+import pl.edu.utp.medicalassistant.service.impl.UserService;
 
 @RestController
 public class UserController {

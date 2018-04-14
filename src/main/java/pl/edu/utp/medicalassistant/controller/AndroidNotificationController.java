@@ -7,7 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.utp.medicalassistant.service.AndroidPushNotificationService;
+import pl.edu.utp.medicalassistant.service.impl.AndroidPushNotificationService;
 
 import java.util.HashMap;
 import java.util.concurrent.CompletableFuture;

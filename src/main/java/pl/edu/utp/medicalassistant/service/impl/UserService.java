@@ -1,4 +1,4 @@
-package pl.edu.utp.medicalassistant.service;
+package pl.edu.utp.medicalassistant.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import pl.edu.utp.medicalassistant.repository.UserRepository;
 
 @Service
 public class UserService {
-
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

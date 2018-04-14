@@ -1,14 +1,14 @@
-package pl.edu.utp.medicalassistant.service;
+package pl.edu.utp.medicalassistant.service.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import pl.edu.utp.medicalassistant.model.interceptors.HeaderRequestInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import pl.edu.utp.medicalassistant.model.interceptors.HeaderRequestInterceptor;
 
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;

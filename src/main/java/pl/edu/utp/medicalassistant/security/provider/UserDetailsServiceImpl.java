@@ -8,7 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.User;
-import pl.edu.utp.medicalassistant.service.UserService;
+import pl.edu.utp.medicalassistant.service.impl.UserService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
