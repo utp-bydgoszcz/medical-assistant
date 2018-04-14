@@ -15,8 +15,6 @@ public class PositionService {
 			map.replace(name, location);
 		else
 			map.put(name, location);
-
-		System.out.println(map.get(name));
 	}
 	
 }

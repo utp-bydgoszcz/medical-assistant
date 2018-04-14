@@ -21,8 +21,6 @@ public class PositionController {
     @PostMapping("/set-position")
     public void setPosition(@RequestBody Location location){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        System.out.println(auth.getName());
         positionService.setLocation(location, auth.getName());
     }
 

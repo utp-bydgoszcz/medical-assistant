@@ -189,6 +189,8 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
         userList = userList.stream().peek(u -> u.setPassword(passwordEncoder.encode(u.getPassword()))).collect(Collectors.toList());
+
+        userList.forEach(user1 -> userRepository.save(user1));
         return true;
     }
 
