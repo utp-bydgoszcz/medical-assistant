@@ -14,6 +14,7 @@ import pl.edu.utp.medicalassistant.service.MobileService;
 import pl.edu.utp.medicalassistant.model.EventType;
 
 import java.util.List;
+import pl.edu.utp.medicalassistant.model.RescuerStatus;
 
 @RestController
 @RequestMapping("/call-for-help")
@@ -49,8 +50,8 @@ public class MobileVictomController {
     }
 
     @PostMapping("/change-rescuer-status")
-    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String username, @RequestBody EventStatus eventStatus){
-        eventService.changeRescuerStatus(eventId,username,eventStatus);
+    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String username, @RequestBody RescuerStatus rescuerStatus){
+        eventService.changeRescuerStatus(eventId,username,rescuerStatus);
     }
 
     @PostMapping("/find-by-id")
