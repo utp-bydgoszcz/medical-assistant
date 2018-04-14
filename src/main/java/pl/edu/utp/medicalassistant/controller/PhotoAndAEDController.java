@@ -23,7 +23,6 @@ public class PhotoAndAEDController {
         this.photoAndAEDService = photoAndAEDService;
     }
 
-
     @GetMapping("/get-photo/{name}")
     public ResponseEntity getPhoto(@PathVariable String name){
         return new ResponseEntity("", HttpStatus.OK);

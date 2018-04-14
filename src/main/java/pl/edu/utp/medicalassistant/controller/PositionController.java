@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.utp.medicalassistant.model.Location;
 import pl.edu.utp.medicalassistant.service.PositionService;
 
-
 @RestController
 @RequestMapping("/position")
 @CrossOrigin(allowedHeaders = {"Access-Control-Allow-Origin", "*"})
