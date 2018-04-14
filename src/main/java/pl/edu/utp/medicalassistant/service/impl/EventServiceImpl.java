@@ -14,6 +14,7 @@ import pl.edu.utp.medicalassistant.model.EventStatus;
 import pl.edu.utp.medicalassistant.model.EventType;
 import pl.edu.utp.medicalassistant.model.Location;
 import pl.edu.utp.medicalassistant.model.Rescuer;
+import pl.edu.utp.medicalassistant.model.RescuerStatus;
 import pl.edu.utp.medicalassistant.repository.EventRepository;
 import pl.edu.utp.medicalassistant.repository.UserRepository;
 
@@ -28,7 +29,7 @@ public class EventServiceImpl implements EventService {
 	private GeoLocationService geoLocationService;
 	@Autowired
 	private PositionService positionService;
-	
+
 	private List<Event> activeEvents = new CopyOnWriteArrayList<>();
 
 	@PostConstruct
@@ -38,17 +39,17 @@ public class EventServiceImpl implements EventService {
 				.filter(e -> e.getStatus() == EventStatus.ACTIVE)
 				.collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public String needHelp(String username, EventType eventType, String description) {
 		// preparing 
 		Location location = positionService.getLocation(username);
 		LocalDateTime now = LocalDateTime.now();
 		Event event = new Event(null, username, description, eventType, now, location, EventStatus.ACTIVE, new ArrayList<Rescuer>());
-		
+
 		event = eventRepository.save(event);
 		refresh();
-		
+
 		return event.getId();
 	}
 
@@ -62,14 +63,26 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public void changeRescuerStatus(String eventId, String username, EventStatus eventStatus) {
+	public void changeRescuerStatus(String eventId, String rescuerName, RescuerStatus rescuerStatus) {
 		activeEvents.stream()
 				.filter(e -> e.getId().equals(eventId))
 				.findAny()
 				.ifPresent(event -> {
-					
-					
+					changeRescuerStatus(event, rescuerName, rescuerStatus);
+					eventRepository.save(event);
+					refresh();
 				});
+	}
+
+	private void changeRescuerStatus(Event event, String rescuerName, RescuerStatus rescuerStatus) {
+		if (event.getRescuers().stream().noneMatch(r -> r.getRescuerId().equals(rescuerName))) {
+			event.getRescuers().add(new Rescuer(rescuerName, rescuerStatus));
+		} else {
+			event.getRescuers().stream()
+					.filter(r -> r.getRescuerId().equals(rescuerName))
+					.findAny()
+					.ifPresent(r -> r.setStatus(rescuerStatus));
+		}
 	}
 
 	@Override
@@ -78,7 +91,7 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	public List<Event> findAvailableForUser(String username) {
+	public List<Event> findAvailableForUser(String rescuerName) {
 		return new ArrayList<>();
 	}
 
@@ -89,8 +102,5 @@ public class EventServiceImpl implements EventService {
 				.findAny()
 				.orElse(null);
 	}
-	
-	
-	
-	
+
 }
