@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class FileServiceImpl implements FileService {
 
     @Autowired
@@ -39,14 +37,7 @@ public class FileServiceImpl implements FileService {
         InputStream inputStream = null;
 
         for (int x = 0; x < files.length; x++) {
-            try {
-                inputStream = new BufferedInputStream(files[x].getInputStream());
-                String fileId = gridFsTemplate.store(inputStream, files[x].getOriginalFilename(), files[x].getContentType(), metaData).getId().toString();
-                listId.add(fileId);
-            } catch (Exception e) {
-                log.error("Błąd przy dodawaniu pliku: " + e.toString());
-                throw new FileException("Błąd przy dodawaniu plików.");
-            }
+
         }
         return new ResponseEntity(listId, HttpStatus.OK);
 
@@ -55,28 +46,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public HttpEntity<byte[]> readFile(String id) {
 
-        List<GridFSDBFile> result = gridFsTemplate.find(new Query().addCriteria(Criteria.where("_id").is(id)));
 
-        for (GridFSDBFile file : result) {
-            try {
-                byte[] document = toByteArray(file.getInputStream());
-                HttpHeaders header = new HttpHeaders();
-
-                String[] parts = file.getContentType().split("/");
-                String mediaType = parts[0];
-                String mediaSubType = parts[1];
-
-                header.setContentType(new MediaType(mediaType, mediaSubType));
-//                header.set("Content-Disposition", "inline; filename="+file.getFilename());
-                header.setContentDispositionFormData(file.getFilename(), file.getFilename());
-                header.set("Access-Control-Expose-Headers", "Content-Disposition");
-                header.setContentLength(document.length);
-                return new HttpEntity<>(document, header);
-            } catch (IOException e) {
-                log.error("Błąd przy odczycie pliku: " + e.toString());
-                throw new FileException("Błąd przy odczycie plików.");
-            }
-        }
         throw new FileException("Nie odnaleziono plików.");
     }
 
