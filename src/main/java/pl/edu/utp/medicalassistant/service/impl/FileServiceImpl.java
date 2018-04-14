@@ -13,12 +13,10 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.utp.medicalassistant.exception.FileException;
+import pl.edu.utp.medicalassistant.repository.FileRepository;
 import pl.edu.utp.medicalassistant.service.FileService;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +26,7 @@ import java.util.Map;
 public class FileServiceImpl implements FileService {
 
     @Autowired
-    private GridFsTemplate gridFsTemplate;
+    private FileRepository repository;
 
     @Override
     public ResponseEntity uploadFile(MultipartFile[] files) {
@@ -39,7 +37,16 @@ public class FileServiceImpl implements FileService {
 
         for (int x = 0; x < files.length; x++) {
 
-
+            byte [] byteArr= new byte[0];
+            try {
+                byteArr = files[x].getBytes();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            inputStream = new ByteArrayInputStream(byteArr);
+            
+            File file = new File(String.valueOf(byteArr));
+//            repository.save(file);
 
         }
         return new ResponseEntity(listId, HttpStatus.OK);
