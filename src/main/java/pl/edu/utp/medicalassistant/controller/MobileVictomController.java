@@ -44,7 +44,7 @@ public class MobileVictomController {
         return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK); }
 
     @PostMapping("/need-help")
-    public ResponseEntity needHelp(@RequestBody EventType eventType, @RequestBody String description) {
+    public ResponseEntity needHelp(@RequestBody EventType eventType, String description) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(eventService.needHelp(auth.getName(), eventType, description), HttpStatus.OK);
     }
@@ -75,10 +75,9 @@ public class MobileVictomController {
 
         List<MobileEvent> mobileEvents = new ArrayList<>();
 
-         eventService.findAll().forEach(event -> mobileEvents.add(creatMobileEvent(event)));
+        eventService.findAll().forEach(event -> mobileEvents.add(creatMobileEvent(event)));
 
         return mobileEvents;
-
     }
 
     @PostMapping("/find-available-for-user")
@@ -88,9 +87,7 @@ public class MobileVictomController {
 
         eventService.findAvailableForUser(auth.getName()).forEach(event -> mobileEvents.add(creatMobileEvent(event)));
 
-
         return mobileEvents;
-
 
     }
 
