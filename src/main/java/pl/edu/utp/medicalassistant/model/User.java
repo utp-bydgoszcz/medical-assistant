@@ -1,14 +1,14 @@
 package pl.edu.utp.medicalassistant.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
@@ -39,7 +39,15 @@ public class User {
 	}
 
 	public String getDescription() {
-		return String.format("%s\nchoroby: %s\nprzyjmuje leki:%s", patientDescription, diseases, medicines);
+		String string = patientDescription + "\n";
+
+		if(Optional.ofNullable(diseases).isPresent()){
+			string += "choroby: " + diseases+ "\n";
+		}
+		if(Optional.ofNullable(medicines).isPresent()){
+			string += "leki: " + medicines;
+		}
+		return string;
 	}
 
 }
