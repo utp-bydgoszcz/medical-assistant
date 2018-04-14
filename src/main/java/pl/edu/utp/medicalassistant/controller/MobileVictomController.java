@@ -44,7 +44,7 @@ public class MobileVictomController {
         return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK); }
 
     @PostMapping("/need-help")
-    public ResponseEntity needHelp(@RequestBody EventType eventType, String description) {
+    public ResponseEntity needHelp(@RequestBody EventType eventType, @RequestBody String description) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(eventService.needHelp(auth.getName(), eventType, description), HttpStatus.OK);
     }
