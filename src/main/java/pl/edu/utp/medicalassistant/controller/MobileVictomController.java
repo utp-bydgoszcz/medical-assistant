@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.utp.medicalassistant.service.MobileService;
 import pl.edu.utp.medicalassistant.model.EventType;
-import pl.edu.utp.medicalassistant.service.Mobileservice;
 
 @RestController
 @RequestMapping("/call-for-help")
@@ -32,17 +31,17 @@ public class MobileVictomController {
         return new ResponseEntity("Pomoc wezwana", HttpStatus.OK);
     }
 
-    @PostMapping("information-about-rescuer")
-    public ResponseEntity informationAboutRescuer(@RequestBody String username){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//    @PostMapping("get-rescuers")
+//    public ResponseEntity informationAboutRescuer(@RequestBody String username){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        return new ResponseEntity(mobileservice.getRescuer(auth.getName()), HttpStatus.OK);
-    }
+//    }
+//
+//    @PostMapping("cancel-rescuer")
+//    public ResponseEntity cancelRescuer(@RequestBody String username){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+////        mobileservice.cancelRescuer(auth.getName(), username);
+//    }
 
-    @PostMapping("cancel-rescuer")
-    public ResponseEntity cancelRescuer(@RequestBody String username){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        mobileservice.cancelRescuer(auth.getName(), username);
-
-    }
 
 }

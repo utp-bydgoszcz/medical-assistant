@@ -38,6 +38,5 @@ public class MobileService {
 				.orElse(null);
 	}
 
-	public boolean cancelR
 	
 }
