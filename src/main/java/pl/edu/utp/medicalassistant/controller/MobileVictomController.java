@@ -24,7 +24,7 @@ public class MobileVictomController {
 
     @Autowired
     private MobileService mobileservice;
-
+	@Autowired
     private EventService eventService;
 
     @PostMapping("/get-information")
