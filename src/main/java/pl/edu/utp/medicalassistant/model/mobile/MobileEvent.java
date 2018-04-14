@@ -17,9 +17,8 @@ import java.util.Optional;
 @NoArgsConstructor
 public class MobileEvent {
 
-	private UserRepository repository;
-	private GeoLocationService geoLocationService;
 
+	private String eventId;
 	private double lat;
 	private double lng;
 	private String title;
@@ -28,29 +27,17 @@ public class MobileEvent {
 	private String address;
 	private MobileUser patient;
 
-	public MobileEvent(Event event) {
+	public MobileEvent(Event event, String title, String address, MobileUser patient) {
 		this.lat = event.getLocation().getLatitude();
 		this.lng = event.getLocation().getLongitude();
-		this.title = getNameFromUsername(event.getUserId());
+		this.title = title;
 		this.description = event.getDescription();
 		this.type = event.getType();
-		try {
-			this.address = geoLocationService.getAddressFromCords(event.toLatLng());
-		} catch (Exception e) {
-			throw new CreateMobileEventException("Nie udało się stworzyć zdarzenia.");
-		}
-		this.patient = getMobileUser(event.getUserId());
+		this.address = address;
+		this.patient = patient;
 	}
 
-	private String getNameFromUsername(String username){
-		Optional<User> user = repository.findByUsername(username);
-		return user.get().getName();
-	}
 
-	private MobileUser getMobileUser(String username){
-		Optional<User> user = repository.findByUsername(username);
-		return new MobileUser(user.get());
-	}
 	
 	
 }

@@ -7,14 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.utp.medicalassistant.model.Event;
-import pl.edu.utp.medicalassistant.model.EventStatus;
+import pl.edu.utp.medicalassistant.exception.CreateMobileEventException;
+import pl.edu.utp.medicalassistant.model.*;
+import pl.edu.utp.medicalassistant.model.mobile.MobileEvent;
+import pl.edu.utp.medicalassistant.model.mobile.MobileUser;
+import pl.edu.utp.medicalassistant.repository.UserRepository;
 import pl.edu.utp.medicalassistant.service.EventService;
+import pl.edu.utp.medicalassistant.service.GeoLocationService;
 import pl.edu.utp.medicalassistant.service.MobileService;
-import pl.edu.utp.medicalassistant.model.EventType;
 
+import java.util.ArrayList;
 import java.util.List;
-import pl.edu.utp.medicalassistant.model.RescuerStatus;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/call-for-help")
@@ -25,7 +29,14 @@ public class MobileVictomController {
     @Autowired
     private MobileService mobileservice;
 
+    @Autowired
     private EventService eventService;
+
+    @Autowired
+    private UserRepository repository;
+
+    @Autowired
+	private GeoLocationService geoLocationService;
 
     @PostMapping("/get-information")
     public ResponseEntity getInformtion(){
@@ -33,7 +44,7 @@ public class MobileVictomController {
         return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK); }
 
     @PostMapping("/need-help")
-    public ResponseEntity needHelp(@RequestBody EventType eventType, @RequestBody String description) {
+    public ResponseEntity needHelp(@RequestBody EventType eventType, String description) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(eventService.needHelp(auth.getName(), eventType, description), HttpStatus.OK);
     }
@@ -45,29 +56,64 @@ public class MobileVictomController {
     }
 
     @PostMapping("/change-event-status")
-    public void changeEventStatus(@RequestBody String eventId, @RequestBody EventStatus eventStatus){
+    public void changeEventStatus(@RequestBody String eventId, EventStatus eventStatus){
         eventService.changeEventStatus(eventId,eventStatus);
     }
 
     @PostMapping("/change-rescuer-status")
-    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String rescuesName, @RequestBody RescuerStatus rescuerStatus){
+    public void changeRescuerStatus(@RequestBody String eventId, String rescuesName, RescuerStatus rescuerStatus){
         eventService.changeRescuerStatus(eventId,rescuesName,rescuerStatus);
     }
 
     @PostMapping("/find-by-id")
-    public Event findById(@RequestBody String id){
-        return eventService.findById(id);
+    public MobileEvent findById(@RequestBody String id){
+        return creatMobileEvent(eventService.findById(id));
     }
 
     @PostMapping("/find-all")
-    public List<Event> findAll(){
-        return eventService.findAll();
+    public List<MobileEvent> findAll(){
+
+        List<MobileEvent> mobileEvents = new ArrayList<>();
+
+         eventService.findAll().forEach(event -> mobileEvents.add(creatMobileEvent(event)));
+
+        return mobileEvents;
+
     }
 
     @PostMapping("/find-available-for-user")
-    public List<Event> findAvailableForUser(){
+    public List<MobileEvent> findAvailableForUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return eventService.findAvailableForUser(auth.getName());
+        List<MobileEvent> mobileEvents = new ArrayList<>();
+
+        eventService.findAvailableForUser(auth.getName()).forEach(event -> mobileEvents.add(creatMobileEvent(event)));
+
+
+        return mobileEvents;
+
+
+    }
+
+    private MobileEvent creatMobileEvent(Event event){
+        String address = null;
+        try {
+            address = geoLocationService.getAddressFromCords(event.toLatLng());
+        } catch (Exception e) {
+            throw new CreateMobileEventException("Błąd przy pobieraniu lokalizajci.");
+        }
+
+        return new MobileEvent(event, getNameFromUsername(event.getUserId()), address, getMobileUser(event.getUserId()));
+
+    }
+
+    private String getNameFromUsername(String username){
+        Optional<User> user = repository.findByUsername(username);
+        return user.get().getName();
+    }
+
+    private MobileUser getMobileUser(String username){
+        Optional<User> user = repository.findByUsername(username);
+        return new MobileUser(user.get());
     }
     
 }
