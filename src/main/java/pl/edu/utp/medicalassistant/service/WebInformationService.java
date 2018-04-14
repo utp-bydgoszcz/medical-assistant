@@ -23,6 +23,7 @@ public class WebInformationService {
 	private PositionService positionService;
 	@Autowired
 	private GeoLocationService geoLocationService;
+	
 
 //	private List<Information> mockList = new ArrayList<>();
 
@@ -30,13 +31,18 @@ public class WebInformationService {
 
 	public List<Information> getInformations() {
 		List<Information> informations = new ArrayList<>();
+		
+		// events
+		
+		
+		// users
 		userRepository.findAll()
 				.forEach(u -> {
 				
 					// TOOD add address
 					InformationPerson person = new InformationPerson(u);
 					Location location = positionService.getLocation(u.getUsername());
-					InformationType type = InformationType.valueOf(u.getType().name());
+					InformationType type = u.getType().toInformationType();
 					Information information = new Information(location.getLatitude(), location.getLongitude(), u.getName(), "", type, "", person, null);
 					informations.add(information);
 					
