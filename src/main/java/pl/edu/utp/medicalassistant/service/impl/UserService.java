@@ -54,7 +54,6 @@ public class UserService {
         user.setMedicines("");
         user.setRescuerDescription("Harcerz");
         user.setPhoneNumber("881444053");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
@@ -72,7 +71,6 @@ public class UserService {
         user.setMedicines("apap");
         user.setRescuerDescription("Harcerz");
         user.setPhoneNumber("883777505");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
@@ -90,7 +88,6 @@ public class UserService {
         user.setMedicines("");
         user.setRescuerDescription("Ratownik medyczny");
         user.setPhoneNumber("665433339");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
@@ -108,7 +105,6 @@ public class UserService {
         user.setMedicines("");
         user.setRescuerDescription("Chętnie pomagam");
         user.setPhoneNumber("783811320");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
@@ -128,7 +124,6 @@ public class UserService {
         user.setMedicines("witamina D, leki przeciwzakrzepowe");
         user.setRescuerDescription("Chętnie pomagam");
         user.setPhoneNumber("880225675");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
@@ -148,7 +143,6 @@ public class UserService {
         user.setMedicines("leki przeciwzakrzepowe");
         user.setRescuerDescription("wykwalifikowana pomoc medyczna");
         user.setPhoneNumber("722458976");
-        user.setConfig(new UserConfig(true));
         user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);
@@ -163,7 +157,6 @@ public class UserService {
         user.setMedicines("leki przeciwzakrzepowe");
         user.setRescuerDescription("wykwalifikowana pomoc medyczna");
         user.setPhoneNumber("678345098");
-        user.setConfig(new UserConfig(true));
         user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);
@@ -178,7 +171,6 @@ public class UserService {
         user.setMedicines("leki przeciwzakrzepowe");
         user.setRescuerDescription("resuscytacja");
         user.setPhoneNumber("543799456");
-        user.setConfig(new UserConfig(false));
         user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);

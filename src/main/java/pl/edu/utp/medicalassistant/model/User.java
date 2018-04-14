@@ -26,15 +26,11 @@ public class User {
 	private UserType type;
 	private List<String> smsNumbers;
 	private String smsText;
-	@JsonIgnore
 	private String patientDescription;
-	@JsonIgnore
 	private String diseases;
-	@JsonIgnore
 	private String medicines;
 	private String rescuerDescription;
 	private String phoneNumber;
-	private UserConfig config;
 	private List<UserRole> authorites = new ArrayList<>();
 
 	public User(String username, String password) {
