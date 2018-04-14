@@ -19,12 +19,10 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @PostMapping("/upload/{id}")
-    public ResponseEntity uploadFile(@PathVariable String id, @RequestParam("files[]") MultipartFile[] files) { return fileService.uploadFile(id, files);}
+    @PostMapping("/upload")
+    public ResponseEntity uploadFile(@RequestParam("files[]") MultipartFile[] files) { return fileService.uploadFile(files);}
 
     @GetMapping("/read/{id}")
     public HttpEntity<byte[]> readFile(@PathVariable String id) { return fileService.readFile(id); }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity findFiles(@PathVariable String id ) { return fileService.findFiles(id); }
 }

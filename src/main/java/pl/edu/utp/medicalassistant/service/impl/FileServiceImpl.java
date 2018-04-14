@@ -31,9 +31,9 @@ public class FileServiceImpl implements FileService {
     private GridFsTemplate gridFsTemplate;
 
     @Override
-    public ResponseEntity uploadFile(String id, MultipartFile[] files) {
+    public ResponseEntity uploadFile(MultipartFile[] files) {
         DBObject metaData = new BasicDBObject();
-        metaData.put("id", id);
+        List<String> listId = new ArrayList<>();
 
         InputStream inputStream = null;
 
@@ -41,16 +41,13 @@ public class FileServiceImpl implements FileService {
             try {
                 inputStream = new BufferedInputStream(files[x].getInputStream());
                 String fileId = gridFsTemplate.store(inputStream, files[x].getOriginalFilename(), files[x].getContentType(), metaData).getId().toString();
-                log.info("Dodano nowy plik id=[" + fileId + "].");
+                listId.add(fileId);
             } catch (Exception e) {
                 log.error("Błąd przy dodawaniu pliku: " + e.toString());
                 throw new FileException("Błąd przy dodawaniu plików.");
             }
         }
-        if (files.length == 1)
-            return new ResponseEntity("Plik dodano prawidłowo", HttpStatus.OK);
-        else
-            return new ResponseEntity("Pliki dodano prawidłowo", HttpStatus.OK);
+        return new ResponseEntity(listId, HttpStatus.OK);
 
     }
 
@@ -80,23 +77,6 @@ public class FileServiceImpl implements FileService {
             }
         }
         throw new FileException("Nie odnaleziono plików.");
-    }
-
-    @Override
-    public ResponseEntity findFiles(String id) {
-
-        List<GridFSDBFile> result = gridFsTemplate.find(new Query(Criteria.where("metadata.id").is(id)));
-        List<Map<String, String>> filesList = new ArrayList<>();
-
-        for (GridFSDBFile file : result) {
-
-            Map<String, String> map = new HashMap<>();
-            map.put("id", String.valueOf(file.getId()));
-            map.put("name", file.getFilename());
-
-            filesList.add(map);
-        }
-        return new ResponseEntity(filesList, HttpStatus.OK);
     }
 
     private byte[] toByteArray(InputStream is) throws IOException {

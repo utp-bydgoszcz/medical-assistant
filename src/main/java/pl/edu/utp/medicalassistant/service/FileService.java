@@ -6,8 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
 
-    ResponseEntity uploadFile(String id, MultipartFile[] files);
+    ResponseEntity uploadFile(MultipartFile[] files);
     HttpEntity<byte[]> readFile(String id);
-    ResponseEntity findFiles(String id);
 
 }
