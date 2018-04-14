@@ -92,7 +92,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public List<Event> findAvailableForUser(String rescuerName) {
-		return new ArrayList<>();
+		return activeEvents;
 	}
 
 	@Override

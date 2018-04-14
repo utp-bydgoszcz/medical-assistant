@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.EventType;
+import pl.edu.utp.medicalassistant.model.RescuerStatus;
 import pl.edu.utp.medicalassistant.model.mobile.MobileUser;
 import pl.edu.utp.medicalassistant.repository.UserRepository;
 
@@ -16,17 +17,15 @@ public class MobileService {
 	@Autowired
 	private EventService eventService;
 	
-	public String needHepl(String username, EventType eventType, String description) {
-		return "1";
-		
-	}
 	
-	public List<MobileUser> getRescuers(String username) {
-		return userRepository.findAll()
+	public List<MobileUser> getRescuers(String eventId) {
+		return eventService.findById(eventId)
+				.getRescuers()
 				.stream()
-				.limit(3)
-				.map(u -> new MobileUser(u))
+				.filter(r -> r.getStatus() == RescuerStatus.ASSIGNED)
+				.map(r -> findByUsername(r.getRescuerId()))
 				.collect(Collectors.toList());
+		
 	}
 	
 	public MobileUser findByUsername(String username) {
