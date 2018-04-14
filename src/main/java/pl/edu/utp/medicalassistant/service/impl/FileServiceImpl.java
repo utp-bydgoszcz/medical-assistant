@@ -1,63 +1,40 @@
 package pl.edu.utp.medicalassistant.service.impl;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.gridfs.GridFSDBFile;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.edu.utp.medicalassistant.exception.FileException;
-import pl.edu.utp.medicalassistant.repository.FileRepository;
+import pl.edu.utp.medicalassistant.model.Photo;
+import pl.edu.utp.medicalassistant.repository.PhotoRepository;
 import pl.edu.utp.medicalassistant.service.FileService;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class FileServiceImpl implements FileService {
 
+
+
     @Autowired
-    private FileRepository repository;
+    private PhotoRepository photoRepository;
 
     @Override
-    public ResponseEntity uploadFile(MultipartFile[] files) {
-        DBObject metaData = new BasicDBObject();
-        List<String> listId = new ArrayList<>();
+    public ResponseEntity uploadFile(MultipartFile multipartFile,String usernameId) throws IOException {
 
-        InputStream inputStream = null;
+        photoRepository.save(new Photo( multipartFile.getBytes(),usernameId));
 
-        for (int x = 0; x < files.length; x++) {
-
-            byte [] byteArr= new byte[0];
-            try {
-                byteArr = files[x].getBytes();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-//            inputStream = new ByteArrayInputStream(byteArr);
-            
-            File file = new File(String.valueOf(byteArr));
-//            repository.save(file);
-
-        }
-        return new ResponseEntity(listId, HttpStatus.OK);
+        return new ResponseEntity("Zdjecie wyslane", HttpStatus.OK);
 
     }
 
     @Override
-    public HttpEntity<byte[]> readFile(String id) {
+    public byte[] readFile(String id) throws IOException {
+        return photoRepository.findByUsernameId(id)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono pliku ")).getFile();
 
-
-        throw new FileException("Nie odnaleziono plików.");
     }
 
     private byte[] toByteArray(InputStream is) throws IOException {

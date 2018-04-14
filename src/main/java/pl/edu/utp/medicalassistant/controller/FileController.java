@@ -1,11 +1,13 @@
 package pl.edu.utp.medicalassistant.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.utp.medicalassistant.service.FileService;
+
+import java.io.IOException;
 
 @RestController
 @CrossOrigin(allowedHeaders = {"Access-Control-Allow-Origin", "*"})
@@ -20,9 +22,12 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity uploadFile(@RequestParam("files[]") MultipartFile[] files) { return fileService.uploadFile(files);}
+    public ResponseEntity uploadFile(@RequestBody MultipartFile multipartFile,@RequestParam String id) throws IOException {
+        return fileService.uploadFile(multipartFile,id);}
 
-    @GetMapping("/read/{id}")
-    public HttpEntity<byte[]> readFile(@PathVariable String id) { return fileService.readFile(id); }
+    @GetMapping(value = "/read/{id}",produces = "image/jpg")
+    public ResponseEntity<byte[]> readFile(@PathVariable String id) throws IOException { return
+            new ResponseEntity<>(fileService.readFile(id),HttpStatus.OK);
+    }
 
 }
