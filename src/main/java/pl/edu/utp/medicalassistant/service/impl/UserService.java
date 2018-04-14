@@ -13,6 +13,7 @@ import pl.edu.utp.medicalassistant.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -47,6 +48,7 @@ public class UserService {
         user.setConfig(new UserConfig(false));
         user.setId(user.getUsername());
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -186,7 +188,7 @@ public class UserService {
         user.setConfig(new UserConfig(false));
         user.setId(user.getUsername());
         userList.add(user);
-
+        userList = userList.stream().peek(u -> u.setPassword(passwordEncoder.encode(u.getPassword()))).collect(Collectors.toList());
         return true;
     }
 
