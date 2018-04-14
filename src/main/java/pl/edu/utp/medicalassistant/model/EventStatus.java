@@ -1,5 +1,9 @@
 package pl.edu.utp.medicalassistant.model;
 
-public class EventStatus {
+public enum EventStatus {
 
+	ACTIVE,
+	FINISHED,
+	CANCELED;
+	
 }
