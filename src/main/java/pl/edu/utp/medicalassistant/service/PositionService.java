@@ -16,5 +16,12 @@ public class PositionService {
 		else
 			map.put(name, location);
 	}
+
+	public Location getLocation(String name){
+		if(map.containsKey(name))
+			return map.get(name);
+		else
+			throw new
+	}
 	
 }
