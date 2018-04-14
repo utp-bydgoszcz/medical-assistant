@@ -10,7 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import pl.edu.utp.medicalassistant.security.provider.AuthenticationProviderImpl;
-import pl.edu.utp.medicalassistant.service.UserService;
+import pl.edu.utp.medicalassistant.service.impl.UserService;
 
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
