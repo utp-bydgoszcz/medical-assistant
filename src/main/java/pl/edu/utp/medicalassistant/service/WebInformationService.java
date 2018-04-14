@@ -24,7 +24,7 @@ public class WebInformationService {
 	@Autowired
 	private GeoLocationService geoLocationService;
 
-	private List<Information> mockList = new ArrayList<>();
+//	private List<Information> mockList = new ArrayList<>();
 
 	private final Random random = new Random();
 
