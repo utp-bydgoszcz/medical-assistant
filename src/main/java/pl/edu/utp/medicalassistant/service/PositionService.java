@@ -1,9 +1,10 @@
 package pl.edu.utp.medicalassistant.service;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.Location;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class PositionService {
@@ -17,11 +18,11 @@ public class PositionService {
 			map.put(name, location);
 	}
 
-	public Location getLocation(String name){
-		if(map.containsKey(name))
-			return map.get(name);
-		else
-			throw new
-	}
+//	public Location getLocation(String name){
+//		if(map.containsKey(name))
+//			return map.get(name);
+//		else
+//			throw new
+//	}
 	
 }
