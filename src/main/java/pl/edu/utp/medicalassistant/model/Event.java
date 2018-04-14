@@ -1,15 +1,13 @@
 package pl.edu.utp.medicalassistant.model;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Event {
 
@@ -19,7 +17,7 @@ public class Event {
     private String description;
     private String type;
     private Date date;
-    private String location;
-//    private List<String>
+    private Location location;
+    private List<Rescuer> rescuers;
 
 }
