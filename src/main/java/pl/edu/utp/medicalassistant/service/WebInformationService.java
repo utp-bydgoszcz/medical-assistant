@@ -9,12 +9,12 @@ import javax.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.edu.utp.medicalassistant.model.information.Information;
-import pl.edu.utp.medicalassistant.model.information.InformationPerson;
-import pl.edu.utp.medicalassistant.model.information.InformationType;
+import pl.edu.utp.medicalassistant.model.web.Information;
+import pl.edu.utp.medicalassistant.model.web.InformationPerson;
+import pl.edu.utp.medicalassistant.model.web.InformationType;
 
 @Service
-public class InformationService {
+public class WebInformationService {
 
 	private List<Information> mockList = new ArrayList<>();
 

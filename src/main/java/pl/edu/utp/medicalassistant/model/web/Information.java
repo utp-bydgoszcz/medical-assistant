@@ -1,4 +1,4 @@
-package pl.edu.utp.medicalassistant.model.information;
+package pl.edu.utp.medicalassistant.model.web;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
