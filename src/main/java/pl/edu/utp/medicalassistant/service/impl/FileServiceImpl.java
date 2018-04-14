@@ -9,14 +9,10 @@ import pl.edu.utp.medicalassistant.model.Photo;
 import pl.edu.utp.medicalassistant.repository.PhotoRepository;
 import pl.edu.utp.medicalassistant.service.FileService;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 @Service
 public class FileServiceImpl implements FileService {
-
-
 
     @Autowired
     private PhotoRepository photoRepository;
@@ -35,16 +31,5 @@ public class FileServiceImpl implements FileService {
         return photoRepository.findByUsernameId(id)
                 .orElseThrow(() -> new RuntimeException("Nie znaleziono pliku ")).getFile();
 
-    }
-
-    private byte[] toByteArray(InputStream is) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int l;
-        byte[] data = new byte[1024];
-        while ((l = is.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, l);
-        }
-        buffer.flush();
-        return buffer.toByteArray();
     }
 }

@@ -50,8 +50,8 @@ public class MobileVictomController {
     }
 
     @PostMapping("/change-rescuer-status")
-    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String username, @RequestBody RescuerStatus rescuerStatus){
-        eventService.changeRescuerStatus(eventId,username,rescuerStatus);
+    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String rescuesName, @RequestBody RescuerStatus rescuerStatus){
+        eventService.changeRescuerStatus(eventId,rescuesName,rescuerStatus);
     }
 
     @PostMapping("/find-by-id")
@@ -69,9 +69,5 @@ public class MobileVictomController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return eventService.findAvailableForUser(auth.getName());
     }
-
-
-
-
-
+    
 }
