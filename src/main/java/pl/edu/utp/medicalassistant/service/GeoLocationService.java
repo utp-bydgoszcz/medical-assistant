@@ -4,6 +4,7 @@ import com.google.maps.*;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.DistanceTime;
 
@@ -20,6 +21,8 @@ import static com.google.maps.model.AddressType.STREET_ADDRESS;
 public class GeoLocationService {
 
     private HashMap<LatLng, Object> addressCache = new HashMap<>();
+
+    private HashMap<Pair<LatLng,LatLng>,Object> distanceCache = new HashMap();
 
     @Value("${google.maps.distance.matrix}")
     private String DISTANCE_MATRIX_API;
@@ -41,6 +44,12 @@ public class GeoLocationService {
 
 
     public List<DistanceTime> getDistanceTime(LatLng origin, LatLng dest) throws InterruptedException, ApiException, IOException {
+        Optional<Pair<LatLng,LatLng>> pairOptional = checkCache(origin,distanceCache);
+
+        if(pairOptional.isPresent()){
+            return (List<DistanceTime>) distanceCache.get(pairOptional.get());
+        }
+
         DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(distanceContext);
         DistanceMatrix trix = req.origins(origin)
                 .destinations(dest)
@@ -48,7 +57,9 @@ public class GeoLocationService {
                 .language(PL)
                 .await();
 
-        return extractDistanceTimes(origin, dest, trix);
+        List<DistanceTime> distanceTimes = extractDistanceTimes(origin,dest,trix);
+        distanceCache.put(Pair.of(origin,dest),distanceTimes);
+        return distanceTimes;
     }
 
     public String getAddressFromCords(LatLng cords) throws InterruptedException, ApiException, IOException {
@@ -75,6 +86,14 @@ public class GeoLocationService {
                 Boolean lon = Math.abs(crd.lng - cords.lng) < 0.0001D;
                 return lat && lon;
             }).findFirst();
+    }
+
+    private Optional<Pair<LatLng,LatLng>> checkCache(LatLng cords,HashMap<Pair<LatLng,LatLng>,Object> map){
+        return map.keySet().parallelStream().filter(crd -> {
+            Boolean lat = Math.abs(crd.getFirst().lat - cords.lat) < 0.0001D;
+            Boolean lon = Math.abs(crd.getFirst().lng - cords.lng) < 0.0001D;
+            return lat && lon;
+        }).findFirst();
     }
 
 
