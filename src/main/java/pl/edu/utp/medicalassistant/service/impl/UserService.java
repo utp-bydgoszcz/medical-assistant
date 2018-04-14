@@ -72,7 +72,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("Komi1", "haslo123");
+        user = new User("user2", "password");
         user.setName("Mikołaj Komisarek");
         user.setType(UserType.PASSERBY);
         List<String> numbers1 = new ArrayList<>();
@@ -89,7 +89,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("barcwi", "pass000");
+        user = new User("user3", "password");
         user.setName("Bartosz Cwiklinski");
         user.setType(UserType.PASSERBY);
         List<String> numbers2 = new ArrayList<>();
@@ -106,7 +106,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("tomek", "doman");
+        user = new User("user4", "password");
         user.setName("Tomasz Domanski");
         user.setType(UserType.RESCUER);
         List<String> numbers3 = new ArrayList<>();
@@ -123,7 +123,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("damian000", "haslo123");
+        user = new User("user5", "password");
         user.setName("Damian Ledziński");
         user.setType(UserType.RESCUER);
         List<String> numbers4 = new ArrayList<>();
@@ -142,7 +142,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("alamakota", "kotamaala");
+        user = new User("user6", "password");
         user.setName("Ala Kot");
         user.setType(UserType.MEDICAL_RESCUER);
         List<String> numbers5 = new ArrayList<>();
@@ -161,7 +161,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("klient", "fake");
+        user = new User("user7", "password");
         user.setName("Jan Nowak");
         user.setType(UserType.MEDICAL_RESCUER);
         user.setSmsNumbers(numbers4);
@@ -175,7 +175,7 @@ public class UserService {
         user.setId(user.getUsername());
         userList.add(user);
 
-        user = new User("cebulak", "aaa");
+        user = new User("user8", "password");
         user.setName("Jan Kowalski");
         user.setType(UserType.PASSERBY);
         user.setSmsNumbers(numbers4);
