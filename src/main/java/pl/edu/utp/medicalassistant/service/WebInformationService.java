@@ -7,15 +7,20 @@ import java.util.List;
 import java.util.Random;
 import javax.annotation.PostConstruct;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.web.Information;
 import pl.edu.utp.medicalassistant.model.web.InformationPerson;
 import pl.edu.utp.medicalassistant.model.web.InformationType;
+import pl.edu.utp.medicalassistant.repository.UserRepository;
 
 @Service
 public class WebInformationService {
 
+	@Autowired
+	private UserRepository userRepository;
+	
 	private List<Information> mockList = new ArrayList<>();
 
 	private final Random random = new Random();
