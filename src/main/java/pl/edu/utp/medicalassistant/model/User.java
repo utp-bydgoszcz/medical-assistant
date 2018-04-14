@@ -29,7 +29,7 @@ public class User {
 	@JsonIgnore
 	private String patientDescription;
 	@JsonIgnore
-	private String desees;
+	private String diseases;
 	@JsonIgnore
 	private String medicines;
 	private String rescuerDescription;
@@ -43,7 +43,7 @@ public class User {
 	}
 
 	public String getDescription() {
-		return String.format("%s\nchoroby: %s\nprzyjmuje leki:%s", patientDescription, desees, medicines);
+		return String.format("%s\nchoroby: %s\nprzyjmuje leki:%s", patientDescription, diseases, medicines);
 	}
 
 }
