@@ -63,7 +63,13 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public void changeRescuerStatus(String eventId, String username, EventStatus eventStatus) {
-		
+		activeEvents.stream()
+				.filter(e -> e.getId().equals(eventId))
+				.findAny()
+				.ifPresent(event -> {
+					
+					
+				});
 	}
 
 	@Override
