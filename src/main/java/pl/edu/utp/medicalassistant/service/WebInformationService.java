@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.Location;
+import pl.edu.utp.medicalassistant.model.User;
 import pl.edu.utp.medicalassistant.model.web.Information;
 import pl.edu.utp.medicalassistant.model.web.InformationPerson;
 import pl.edu.utp.medicalassistant.model.web.InformationType;
@@ -23,6 +24,8 @@ public class WebInformationService {
 	private PositionService positionService;
 	@Autowired
 	private GeoLocationService geoLocationService;
+	@Autowired
+	private EventService eventService;
 	
 
 //	private List<Information> mockList = new ArrayList<>();
@@ -33,7 +36,18 @@ public class WebInformationService {
 		List<Information> informations = new ArrayList<>();
 		
 		// events
-		
+		eventService.findAll()
+				.forEach(e -> {
+				
+					User p = userRepository.findByUsername(e.getUserId()).get();
+					InformationPerson ip = new InformationPerson(p);
+					
+					InformationType type = e.getType().toInformationType();
+					Information information = new Information(e.getLocation().getLatitude(), e.getLocation().getAccuracy(), e.getType().toString(), e.getDescription(), type, "", ip, null);
+					informations.add(information);
+					
+						
+				});
 		
 		// users
 		userRepository.findAll()
