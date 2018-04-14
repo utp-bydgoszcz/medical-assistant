@@ -20,5 +20,4 @@ public enum UserType {
 	public String toString() {
 		return name;
 	}
-
 }

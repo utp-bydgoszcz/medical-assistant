@@ -36,8 +36,10 @@ public class WebInformationService {
 					// TOOD add address
 					InformationPerson person = new InformationPerson(u);
 					Location location = positionService.getLocation(u.getUsername());
-					Information information = new Information(location.getLatitude(), location.getLongitude(), u.getName(), "", InformationType.DANGER_LIFE, "", person, null);
-				
+					InformationType type = InformationType.valueOf(u.getType().name());
+					Information information = new Information(location.getLatitude(), location.getLongitude(), u.getName(), "", type, "", person, null);
+					informations.add(information);
+					
 				});
 		
 		return informations;
