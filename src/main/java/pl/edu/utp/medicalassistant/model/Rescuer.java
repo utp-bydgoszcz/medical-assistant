@@ -11,7 +11,6 @@ public class Rescuer {
 
     private String rescuerId;
     private Date date;
-    private Location location;
-    private String status;
+    private EventStatus status;
 
 }
