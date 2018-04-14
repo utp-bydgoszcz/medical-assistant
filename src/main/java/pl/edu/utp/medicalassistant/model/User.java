@@ -20,6 +20,7 @@ public class User {
 
     @Indexed(unique=true)
     private String username;
+
     private String password;
     private String photoId;
     private String configuration;
@@ -33,7 +34,7 @@ public class User {
     private String rescuerDescription;
     private String phoneNumber;
     private List<String> config;
-    private List<UserRole> authorities = new ArrayList<>();
+    private List<UserRole> authorites = new ArrayList<>();
 
 
     public User(String username, String password) {
