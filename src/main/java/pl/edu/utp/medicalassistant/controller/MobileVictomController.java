@@ -45,6 +45,7 @@ public class MobileVictomController {
         return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK);
     }
 
+
     @PostMapping("/need-help/{eventType}")
     public ResponseEntity needHelp(@RequestBody HashMap<String, Object> body, @PathVariable String eventType) {
 
@@ -67,7 +68,7 @@ public class MobileVictomController {
     @PostMapping("/change-rescuer-status/{rescuerStatus}")
     public void changeRescuerStatus(@RequestBody HashMap<String,String> map , @PathVariable String rescuerStatus) {
 
-        eventService.changeRescuerStatus(map.get("eventId"), map.get("rescuerName"), RescuerStatus.valueOf(rescuerStatus));
+        eventService.changeRescuerStatus(map.get("eventId"),SecurityContextHolder.getContext().getAuthentication().getName(), RescuerStatus.valueOf(rescuerStatus));
     }
 
     @PostMapping("/find-by-id")
