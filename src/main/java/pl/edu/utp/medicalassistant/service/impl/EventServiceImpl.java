@@ -42,7 +42,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	public String needHelp(String username, EventType eventType, String description) {
-		// preparing 
+		// preparing
 		Location location = positionService.getLocation(username);
 		LocalDateTime now = LocalDateTime.now();
 		Event event = new Event(null, username, description, eventType, now, location, EventStatus.ACTIVE, new ArrayList<Rescuer>());

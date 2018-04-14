@@ -14,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import pl.edu.utp.medicalassistant.exception.CreateMobileEventException;
 import pl.edu.utp.medicalassistant.exception.FileException;
 import pl.edu.utp.medicalassistant.exception.LocationExceptiom;
 import pl.edu.utp.medicalassistant.model.errors.ErrorResponse;
@@ -67,6 +68,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(LocationExceptiom.class)
     protected ResponseEntity<ErrorResponse> locationExceptiom(RuntimeException ex, WebRequest request) {
+        log.error(ex.getMessage());
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(), ErrorType.WARNING, HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CreateMobileEventException.class)
+    protected ResponseEntity<ErrorResponse> createMobileEventException(RuntimeException ex, WebRequest request) {
         log.error(ex.getMessage());
         return new ResponseEntity<>(new ErrorResponse(HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(), ErrorType.WARNING, HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
