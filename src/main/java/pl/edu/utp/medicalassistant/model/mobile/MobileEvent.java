@@ -28,6 +28,7 @@ public class MobileEvent {
 	private MobileUser patient;
 
 	public MobileEvent(Event event, String title, String address, MobileUser patient) {
+		this.eventId = event.getId();
 		this.lat = event.getLocation().getLatitude();
 		this.lng = event.getLocation().getLongitude();
 		this.title = title;
