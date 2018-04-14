@@ -1,10 +1,10 @@
 package pl.edu.utp.medicalassistant.model;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,9 +15,11 @@ public class Event {
     private String id;
     private String userId;
     private String description;
-    private String type;
-    private Date date;
+    private EventType type;
+    private LocalDateTime date;
     private Location location;
-    private List<Rescuer> rescuers;
+    private EventStatus status;
+	private List<Rescuer> rescuers;
+	
 
 }
