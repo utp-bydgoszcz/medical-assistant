@@ -54,10 +54,9 @@ public class MobileVictomController {
         return new ResponseEntity(eventService.needHelp(auth.getName(), EventType.valueOf(eventType), (String) body.get("description")), HttpStatus.OK);
     }
 
-    @PostMapping("/get-rescuers")
-    public ResponseEntity informationAboutRescuer() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return new ResponseEntity(mobileservice.getRescuers(auth.getName()), HttpStatus.OK);
+    @PostMapping("/get-rescuers/{eventId}")
+    public ResponseEntity informationAboutRescuer(@PathVariable String eventId) {
+        return new ResponseEntity(mobileservice.getRescuers(eventId), HttpStatus.OK);
     }
 
     @PostMapping("/change-event-status/{eventStatus}")
