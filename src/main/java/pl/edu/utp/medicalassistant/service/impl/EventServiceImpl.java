@@ -75,14 +75,25 @@ public class EventServiceImpl implements EventService {
 	}
 
 	private void changeRescuerStatus(Event event, String rescuerName, RescuerStatus rescuerStatus) {
-		if (event.getRescuers().stream().noneMatch(r -> r.getRescuerId().equals(rescuerName))) {
-			event.getRescuers().add(new Rescuer(rescuerName, rescuerStatus));
+		if (rescuerStatus == RescuerStatus.ASSIGNED) {
+			if (event.getRescuers().stream().noneMatch(r -> r.getRescuerId().equals(rescuerName))) {
+				event.getRescuers().add(new Rescuer(rescuerName, rescuerStatus));
+			}
 		} else {
-			event.getRescuers().stream()
-					.filter(r -> r.getRescuerId().equals(rescuerName))
-					.findAny()
-					.ifPresent(r -> r.setStatus(rescuerStatus));
+			List<Rescuer> rescuers = event.getRescuers();
+			rescuers = rescuers.stream()
+					.filter(r -> !r.getRescuerId().equals(rescuerName))
+					.collect(Collectors.toList());
+			event.setRescuers(rescuers);
 		}
+//		if (event.getRescuers().stream().noneMatch(r -> r.getRescuerId().equals(rescuerName))) {
+//			event.getRescuers().add(new Rescuer(rescuerName, rescuerStatus));
+//		} else {
+//			event.getRescuers().stream()
+//					.filter(r -> r.getRescuerId().equals(rescuerName))
+//					.findAny()
+//					.ifPresent(r -> r.setStatus(rescuerStatus));
+//		}
 	}
 
 	@Override
@@ -103,5 +114,4 @@ public class EventServiceImpl implements EventService {
 				.orElse(null);
 	}
 
-	
 }

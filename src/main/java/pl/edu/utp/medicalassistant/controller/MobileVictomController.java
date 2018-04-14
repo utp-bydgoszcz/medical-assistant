@@ -101,7 +101,6 @@ public class MobileVictomController {
         try {
             address = geoLocationService.getAddressFromCords(event.toLatLng());
         } catch (Exception e) {
-            throw new CreateMobileEventException("Błąd przy pobieraniu lokalizajci.");
         }
 
         return new MobileEvent(event, getNameFromUsername(event.getUserId()), address, getMobileUser(event.getUserId()));
