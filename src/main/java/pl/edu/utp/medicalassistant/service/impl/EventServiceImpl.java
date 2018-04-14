@@ -28,7 +28,7 @@ public class EventServiceImpl implements EventService {
 	private GeoLocationService geoLocationService;
 	@Autowired
 	private PositionService positionService;
-	
+
 	private List<Event> activeEvents = new CopyOnWriteArrayList<>();
 
 	@PostConstruct
@@ -38,17 +38,17 @@ public class EventServiceImpl implements EventService {
 				.filter(e -> e.getStatus() == EventStatus.ACTIVE)
 				.collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public String needHelp(String username, EventType eventType, String description) {
-		// preparing 
+		// preparing
 		Location location = positionService.getLocation(username);
 		LocalDateTime now = LocalDateTime.now();
 		Event event = new Event(null, username, description, eventType, now, location, EventStatus.ACTIVE, new ArrayList<Rescuer>());
-		
+
 		event = eventRepository.save(event);
 		refresh();
-		
+
 		return event.getId();
 	}
 
@@ -67,8 +67,8 @@ public class EventServiceImpl implements EventService {
 				.filter(e -> e.getId().equals(eventId))
 				.findAny()
 				.ifPresent(event -> {
-					
-					
+
+
 				});
 	}
 
@@ -89,7 +89,7 @@ public class EventServiceImpl implements EventService {
 				.findAny()
 				.orElse(null);
 	}
-	
+
 	
 	
 	

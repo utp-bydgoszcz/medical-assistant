@@ -1,6 +1,8 @@
 package pl.edu.utp.medicalassistant.model;
 
 import java.time.LocalDateTime;
+
+import com.google.maps.model.LatLng;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -22,6 +24,14 @@ public class Event {
     private Location location;
     private EventStatus status;
 	private List<Rescuer> rescuers;
+
+//	public Event(String username, ){
+//
+//    }
+
+	public LatLng toLatLng(){
+	    return location.toLatLng();
+    }
 	
 
 }
