@@ -11,7 +11,7 @@ public class PositionService {
 	private final Map<String, Location> map = new ConcurrentHashMap<>();
 
 	public void setLocation(Location location, String name){
-		if(map.containsKey(location))
+		if(map.containsKey(name))
 			map.replace(name, location);
 		else
 			map.put(name, location);
