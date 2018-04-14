@@ -1,21 +1,29 @@
 package pl.edu.utp.medicalassistant.model;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.data.mongodb.core.index.Indexed;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
     @Id
     private String id;
     private String name;
+
+    @Indexed(unique=true)
+    private String username;
+    private String password;
     private String photoId;
+    private String configuration;
+    private String notification;
     private List<String> qualifications;
     private List<String> smsNumbers;
     private String smsText;
@@ -25,6 +33,13 @@ public class User {
     private String rescuerDescription;
     private String phoneNumber;
     private List<String> config;
+    private List<UserRole> authorities = new ArrayList<>();
+
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public User(String name, String photoId, List<String> qualifications, List<String> smsNumbers, String smsText, String patientDescription,
                 List<String> medicines, String comments, String rescuerDescription, String phoneNumber, List<String> config){
