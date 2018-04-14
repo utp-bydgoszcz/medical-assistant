@@ -1,6 +1,7 @@
 package pl.edu.utp.medicalassistant.model;
 
 import lombok.Getter;
+import pl.edu.utp.medicalassistant.model.web.InformationType;
 
 public enum UserType {
 	MEDICAL_RESCUER("dedical-rescuer", "Ratownik medyczny"),
@@ -19,5 +20,16 @@ public enum UserType {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public InformationType toInformationType() {
+		switch (this) {
+			case MEDICAL_RESCUER:
+				return InformationType.MEDICAL_RESCUER;
+			case RESCUER:
+				return InformationType.RESCUER;
+			default:
+				return InformationType.OTHER_PERSON;
+		}
 	}
 }
