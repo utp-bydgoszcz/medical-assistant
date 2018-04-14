@@ -25,5 +25,7 @@ public class Mobileservice {
 				.findAny()
 				.orElse(null);
 	}
+
+	public boolean cancelR
 	
 }

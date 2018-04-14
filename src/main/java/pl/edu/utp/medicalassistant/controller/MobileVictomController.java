@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.utp.medicalassistant.model.EventType;
 import pl.edu.utp.medicalassistant.service.Mobileservice;
 
 @RestController
@@ -23,12 +24,24 @@ public class MobileVictomController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK); }
 
-//    @PostMapping("/call-for-help")
-//    public ResponseEntity callForHelp(@RequestBody EventType eventType, ) {
-//
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        //auth.getName()
-//    }
+    @PostMapping("/need-help")
+    public ResponseEntity needHelp(@RequestBody EventType eventType, @RequestBody String description) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        mobileservice.needHepl(auth.getName(), eventType, description);
+        return new ResponseEntity("Pomoc wezwana", HttpStatus.OK);
+    }
 
+    @PostMapping("information-about-rescuer")
+    public ResponseEntity informationAboutRescuer(@RequestBody String username){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        return new ResponseEntity(mobileservice.getRescuer(auth.getName()), HttpStatus.OK);
+    }
+
+    @PostMapping("cancel-rescuer")
+    public ResponseEntity cancelRescuer(@RequestBody String username){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        mobileservice.cancelRescuer(auth.getName(), username);
+
+    }
 
 }

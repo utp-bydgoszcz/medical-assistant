@@ -3,6 +3,7 @@ package pl.edu.utp.medicalassistant.service;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
+import pl.edu.utp.medicalassistant.exception.LocationExceptiom;
 import pl.edu.utp.medicalassistant.model.Location;
 
 @Service
@@ -21,7 +22,7 @@ public class PositionService {
 		if(map.containsKey(name))
 			return map.get(name);
 		else
-			throw new
+			throw new LocationExceptiom("Brak lokalizacji");
 	}
 	
 }
