@@ -59,14 +59,15 @@ public class MobileVictomController {
         return new ResponseEntity(mobileservice.getRescuers(auth.getName()), HttpStatus.OK);
     }
 
-    @PostMapping("/change-event-status")
-    public void changeEventStatus(@RequestBody String eventId, EventStatus eventStatus) {
-        eventService.changeEventStatus(eventId, eventStatus);
+    @PostMapping("/change-event-status/{eventStatus}")
+    public void changeEventStatus(@RequestBody String eventId, @PathVariable String eventStatus) {
+        eventService.changeEventStatus(eventId, EventStatus.valueOf(eventStatus));
     }
 
-    @PostMapping("/change-rescuer-status")
-    public void changeRescuerStatus(@RequestBody String eventId, String rescuesName, RescuerStatus rescuerStatus) {
-        eventService.changeRescuerStatus(eventId, rescuesName, rescuerStatus);
+    @PostMapping("/change-rescuer-status/{rescuerStatus}")
+    public void changeRescuerStatus(@RequestBody HashMap<String,String> map , @PathVariable String rescuerStatus) {
+
+        eventService.changeRescuerStatus(map.get("eventId"), map.get("rescuerName"), RescuerStatus.valueOf(rescuerStatus));
     }
 
     @PostMapping("/find-by-id")
