@@ -17,6 +17,7 @@ import pl.edu.utp.medicalassistant.service.GeoLocationService;
 import pl.edu.utp.medicalassistant.service.MobileService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,42 +37,45 @@ public class MobileVictomController {
     private UserRepository repository;
 
     @Autowired
-	private GeoLocationService geoLocationService;
+    private GeoLocationService geoLocationService;
 
     @PostMapping("/get-information")
-    public ResponseEntity getInformtion(){
+    public ResponseEntity getInformtion() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK); }
+        return new ResponseEntity(mobileservice.findByUsername(auth.getName()), HttpStatus.OK);
+    }
 
     @PostMapping("/need-help")
-    public ResponseEntity needHelp(@RequestBody EventType eventType, String description) {
+    public ResponseEntity needHelp(@RequestBody HashMap<String, Object> body) {
+
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        return new ResponseEntity(eventService.needHelp(auth.getName(), eventType, description), HttpStatus.OK);
+        return new ResponseEntity(eventService.needHelp(auth.getName(), (EventType) body.get("eventType"), (String) body.get("description")), HttpStatus.OK);
     }
 
     @PostMapping("/get-rescuers")
-    public ResponseEntity informationAboutRescuer(){
+    public ResponseEntity informationAboutRescuer() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(mobileservice.getRescuers(auth.getName()), HttpStatus.OK);
     }
 
     @PostMapping("/change-event-status")
-    public void changeEventStatus(@RequestBody String eventId, EventStatus eventStatus){
-        eventService.changeEventStatus(eventId,eventStatus);
+    public void changeEventStatus(@RequestBody String eventId, EventStatus eventStatus) {
+        eventService.changeEventStatus(eventId, eventStatus);
     }
 
     @PostMapping("/change-rescuer-status")
-    public void changeRescuerStatus(@RequestBody String eventId, String rescuesName, RescuerStatus rescuerStatus){
-        eventService.changeRescuerStatus(eventId,rescuesName,rescuerStatus);
+    public void changeRescuerStatus(@RequestBody String eventId, String rescuesName, RescuerStatus rescuerStatus) {
+        eventService.changeRescuerStatus(eventId, rescuesName, rescuerStatus);
     }
 
     @PostMapping("/find-by-id")
-    public MobileEvent findById(@RequestBody String id){
+    public MobileEvent findById(@RequestBody String id) {
         return creatMobileEvent(eventService.findById(id));
     }
 
     @PostMapping("/find-all")
-    public List<MobileEvent> findAll(){
+    public List<MobileEvent> findAll() {
 
         List<MobileEvent> mobileEvents = new ArrayList<>();
 
@@ -81,7 +85,7 @@ public class MobileVictomController {
     }
 
     @PostMapping("/find-available-for-user")
-    public List<MobileEvent> findAvailableForUser(){
+    public List<MobileEvent> findAvailableForUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<MobileEvent> mobileEvents = new ArrayList<>();
 
@@ -91,7 +95,7 @@ public class MobileVictomController {
 
     }
 
-    private MobileEvent creatMobileEvent(Event event){
+    private MobileEvent creatMobileEvent(Event event) {
         String address = null;
         try {
             address = geoLocationService.getAddressFromCords(event.toLatLng());
@@ -103,14 +107,14 @@ public class MobileVictomController {
 
     }
 
-    private String getNameFromUsername(String username){
+    private String getNameFromUsername(String username) {
         Optional<User> user = repository.findByUsername(username);
         return user.get().getName();
     }
 
-    private MobileUser getMobileUser(String username){
+    private MobileUser getMobileUser(String username) {
         Optional<User> user = repository.findByUsername(username);
         return new MobileUser(user.get());
     }
-    
+
 }
