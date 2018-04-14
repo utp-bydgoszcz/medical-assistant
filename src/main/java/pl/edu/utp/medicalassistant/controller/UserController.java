@@ -24,4 +24,18 @@ public class UserController {
         userService.createUser(user);
         return new ResponseEntity<>("Użytkownik został zarejestrowany", HttpStatus.OK);
     }
+
+    @PostMapping(value = "/user/create-all")
+    public ResponseEntity<String> createAll(){
+        if(userService.createUsers())
+            return new ResponseEntity<>("Użytkownicy zostali zarejestrowani", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Wystąpił błąd", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/user/delete-all")
+    public ResponseEntity<String> deleteAll(){
+        userService.deleteAll();
+        return new ResponseEntity<>("Użytkownicy zostali usunięci", HttpStatus.OK);
+    }
 }
