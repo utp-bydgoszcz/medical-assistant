@@ -31,11 +31,11 @@ public class MobileVictomController {
         return new ResponseEntity("Pomoc wezwana", HttpStatus.OK);
     }
 
-//    @PostMapping("get-rescuers")
-//    public ResponseEntity informationAboutRescuer(@RequestBody String username){
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        return new ResponseEntity(mobileservice.getRescuer(auth.getName()), HttpStatus.OK);
-//    }
+    @PostMapping("get-rescuers")
+    public ResponseEntity informationAboutRescuer(@RequestBody String username){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return new ResponseEntity(mobileservice.getRescuers(auth.getName()), HttpStatus.OK);
+    }
 //
 //    @PostMapping("cancel-rescuer")
 //    public ResponseEntity cancelRescuer(@RequestBody String username){
