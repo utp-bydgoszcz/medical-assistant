@@ -13,6 +13,8 @@ public interface EventService {
 	
 	void changeRescuerStatus(String eventId, String username, EventStatus eventStatus);
 	
+	Event findById(String eventId);
+	
 	List<Event> findAll();
 	
 	List<Event> findAvailableForUser(String username);
