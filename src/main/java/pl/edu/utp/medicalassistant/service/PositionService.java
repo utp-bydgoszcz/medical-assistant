@@ -9,5 +9,12 @@ import pl.edu.utp.medicalassistant.model.Location;
 public class PositionService {
 
 	private final Map<String, Location> map = new ConcurrentHashMap<>();
+
+	public void setLocation(Location location, String name){
+		if(map.containsKey(location))
+			map.replace(name, location);
+		else
+			map.put(name, location);
+	}
 	
 }
