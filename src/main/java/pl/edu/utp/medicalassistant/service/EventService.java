@@ -1,15 +1,20 @@
 package pl.edu.utp.medicalassistant.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import pl.edu.utp.medicalassistant.repository.EventRepository;
+import java.util.List;
+import pl.edu.utp.medicalassistant.model.Event;
+import pl.edu.utp.medicalassistant.model.EventStatus;
+import pl.edu.utp.medicalassistant.model.EventType;
 
-@Service
-public class EventService {
+public interface EventService {
 
-	@Autowired
-	private EventRepository eventRepository;
+	String needHelp(String username, EventType eventType, String description);
 	
+	void changeEventStatus(String eventId, EventStatus eventStatus);
 	
+	void changeRescuerStatus(String eventId, String username, EventStatus eventStatus);
+	
+	List<Event> findAll();
+	
+	List<Event> findAvailableForUser(String username);
 	
 }
