@@ -11,6 +11,6 @@ public class Rescuer {
 
     private String rescuerId;
     private Date date;
-    private EventStatus status;
+    private RescuerStatus status;
 
 }

@@ -16,7 +16,8 @@ public class MobileService {
 	@Autowired
 	private EventService eventService;
 	
-	public void needHepl(String username, EventType eventType, String description) {
+	public String needHepl(String username, EventType eventType, String description) {
+		return "1";
 		
 	}
 	

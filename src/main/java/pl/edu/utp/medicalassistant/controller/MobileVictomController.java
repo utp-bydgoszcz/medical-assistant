@@ -7,8 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.utp.medicalassistant.model.Event;
+import pl.edu.utp.medicalassistant.model.EventStatus;
+import pl.edu.utp.medicalassistant.service.EventService;
 import pl.edu.utp.medicalassistant.service.MobileService;
 import pl.edu.utp.medicalassistant.model.EventType;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/call-for-help")
@@ -19,6 +24,8 @@ public class MobileVictomController {
     @Autowired
     private MobileService mobileservice;
 
+    private EventService eventService;
+
     @PostMapping("/get-information")
     public ResponseEntity getInformtion(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -27,21 +34,43 @@ public class MobileVictomController {
     @PostMapping("/need-help")
     public ResponseEntity needHelp(@RequestBody EventType eventType, @RequestBody String description) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        mobileservice.needHepl(auth.getName(), eventType, description);
-        return new ResponseEntity("Pomoc wezwana", HttpStatus.OK);
+        return new ResponseEntity(eventService.needHelp(auth.getName(), eventType, description), HttpStatus.OK);
     }
 
-    @PostMapping("get-rescuers")
-    public ResponseEntity informationAboutRescuer(@RequestBody String username){
+    @PostMapping("/get-rescuers")
+    public ResponseEntity informationAboutRescuer(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return new ResponseEntity(mobileservice.getRescuers(auth.getName()), HttpStatus.OK);
     }
-//
-//    @PostMapping("cancel-rescuer")
-//    public ResponseEntity cancelRescuer(@RequestBody String username){
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-////        mobileservice.cancelRescuer(auth.getName(), username);
-//    }
+
+    @PostMapping("/change-event-status")
+    public void changeEventStatus(@RequestBody String eventId, @RequestBody EventStatus eventStatus){
+        eventService.changeEventStatus(eventId,eventStatus);
+    }
+
+    @PostMapping("/change-rescuer-status")
+    public void changeRescuerStatus(@RequestBody String eventId, @RequestBody String username, @RequestBody EventStatus eventStatus){
+        eventService.changeRescuerStatus(eventId,username,eventStatus);
+    }
+
+    @PostMapping("/find-by-id")
+    public Event findById(@RequestBody String id){
+        return eventService.findById(id);
+    }
+
+    @PostMapping("/find-all")
+    public List<Event> findAll(){
+        return eventService.findAll();
+    }
+
+    @PostMapping("/find-available-for-user")
+    public List<Event> findAvailableForUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return eventService.findAvailableForUser(auth.getName());
+    }
+
+
+
 
 
 }
