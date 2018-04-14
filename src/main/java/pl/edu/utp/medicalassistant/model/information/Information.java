@@ -14,5 +14,9 @@ public class Information {
 	private String title;
 	private String description;
 	private InformationType informationType;
-	
+
+	public String getIcon() {
+		return informationType.getIcon();
+	}
+
 }
