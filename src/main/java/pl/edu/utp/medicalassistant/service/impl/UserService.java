@@ -34,20 +34,6 @@ public class UserService {
 
     public void createUser(User user) {
 
-        user.setName("Cezary Kolaszewski");
-        user.setType(UserType.PASSERBY);
-        List<String> numbers = new ArrayList<>();
-        numbers.add("442837527");
-        user.setSmsNumbers(numbers);
-        user.setSmsText("Jestem ranny");
-        user.setPatientDescription("złamana noga");
-        user.setDesees("");
-        user.setMedicines("");
-        user.setRescuerDescription("sztuczne oddychanie");
-        user.setPhoneNumber("765433338");
-        user.setConfig(new UserConfig(false));
-        user.setId(user.getUsername());
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -62,13 +48,14 @@ public class UserService {
         numbers.add("665433339");
         numbers.add("883777505");
         user.setSmsNumbers(numbers);
-        user.setSmsText("Jestem ranny");
-        user.setPatientDescription("złamana noga");
-        user.setDesees("");
+        user.setSmsText("Cezary");
+        user.setPatientDescription("Niepełnosprawny");
+        user.setDiseases("");
         user.setMedicines("");
-        user.setRescuerDescription("sztuczne oddychanie");
+        user.setRescuerDescription("Harcerz");
         user.setPhoneNumber("881444053");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -79,13 +66,14 @@ public class UserService {
         numbers1.add("665433339");
         numbers1.add("880225675");
         user.setSmsNumbers(numbers1);
-        user.setSmsText("Miałem wypadek");
-        user.setPatientDescription("złamany nos");
-        user.setDesees("");
+        user.setSmsText("Mikołąj");
+        user.setPatientDescription("Niepełnosprawny");
+        user.setDiseases("");
         user.setMedicines("apap");
-        user.setRescuerDescription("");
+        user.setRescuerDescription("Harcerz");
         user.setPhoneNumber("883777505");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -96,13 +84,14 @@ public class UserService {
         numbers2.add("881444053");
         numbers2.add("880225675");
         user.setSmsNumbers(numbers2);
-        user.setSmsText("Mam zawał");
-        user.setPatientDescription("zawał");
-        user.setDesees("astma");
+        user.setSmsText("Bartosz");
+        user.setPatientDescription("Niepełnosprawny");
+        user.setDiseases("astma");
         user.setMedicines("");
-        user.setRescuerDescription("");
+        user.setRescuerDescription("Ratownik medyczny");
         user.setPhoneNumber("665433339");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -113,13 +102,14 @@ public class UserService {
         numbers3.add("881444053");
         numbers3.add("880225675");
         user.setSmsNumbers(numbers3);
-        user.setSmsText("Pomocy");
+        user.setSmsText("Tomasz");
         user.setPatientDescription("");
-        user.setDesees("astma");
+        user.setDiseases("astma");
         user.setMedicines("");
-        user.setRescuerDescription("resuscytacja");
+        user.setRescuerDescription("Chętnie pomagam");
         user.setPhoneNumber("783811320");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -132,13 +122,14 @@ public class UserService {
         numbers4.add("665433339");
         numbers4.add("783811320");
         user.setSmsNumbers(numbers4);
-        user.setSmsText("Potrzebna pomoc");
+        user.setSmsText("Damian");
         user.setPatientDescription("");
-        user.setDesees("");
-        user.setMedicines("witamina D");
-        user.setRescuerDescription("resuscytacja");
+        user.setDiseases("");
+        user.setMedicines("witamina D, leki przeciwzakrzepowe");
+        user.setRescuerDescription("Chętnie pomagam");
         user.setPhoneNumber("880225675");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId(user.getUsername());
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -151,13 +142,14 @@ public class UserService {
         numbers5.add("665433339");
         numbers5.add("783811320");
         user.setSmsNumbers(numbers4);
-        user.setSmsText("Potrzebna pomoc!!!AAA!!");
+        user.setSmsText("Ala");
         user.setPatientDescription("");
-        user.setDesees("");
+        user.setDiseases("");
         user.setMedicines("leki przeciwzakrzepowe");
-        user.setRescuerDescription("resuscytacja");
+        user.setRescuerDescription("wykwalifikowana pomoc medyczna");
         user.setPhoneNumber("722458976");
         user.setConfig(new UserConfig(true));
+        user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -165,13 +157,14 @@ public class UserService {
         user.setName("Jan Nowak");
         user.setType(UserType.MEDICAL_RESCUER);
         user.setSmsNumbers(numbers4);
-        user.setSmsText("Pomocy!");
+        user.setSmsText("Jan");
         user.setPatientDescription("");
-        user.setDesees("");
+        user.setDiseases("");
         user.setMedicines("leki przeciwzakrzepowe");
-        user.setRescuerDescription("resuscytacja");
+        user.setRescuerDescription("wykwalifikowana pomoc medyczna");
         user.setPhoneNumber("678345098");
         user.setConfig(new UserConfig(true));
+        user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);
 
@@ -179,13 +172,14 @@ public class UserService {
         user.setName("Jan Kowalski");
         user.setType(UserType.PASSERBY);
         user.setSmsNumbers(numbers4);
-        user.setSmsText("Pomocy!");
+        user.setSmsText("Jan");
         user.setPatientDescription("");
-        user.setDesees("");
+        user.setDiseases("");
         user.setMedicines("leki przeciwzakrzepowe");
         user.setRescuerDescription("resuscytacja");
         user.setPhoneNumber("543799456");
         user.setConfig(new UserConfig(false));
+        user.setPhotoId("none");
         user.setId(user.getUsername());
         userList.add(user);
         userList = userList.stream().peek(u -> u.setPassword(passwordEncoder.encode(u.getPassword()))).collect(Collectors.toList());
