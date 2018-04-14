@@ -1,6 +1,7 @@
 package pl.edu.utp.medicalassistant.model;
 
 import lombok.Getter;
+import pl.edu.utp.medicalassistant.model.web.InformationType;
 
 public enum EventType {
 
@@ -21,6 +22,19 @@ public enum EventType {
 	@Override
 	public String toString() {
 		return name;
+	}
+	
+	public InformationType toInformationType() {
+		switch (this) {
+			case DANGER_LIVE:
+				return InformationType.DANGER_LIFE;
+			case DANGER_HEALTH:
+				return InformationType.DANGER_HEALTH;
+			case HELP:
+				return InformationType.HELP;
+			default:
+				return InformationType.OTHER;
+		}
 	}
 	
 }
