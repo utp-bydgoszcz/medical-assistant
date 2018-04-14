@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pl.edu.utp.medicalassistant.model.Location;
+import pl.edu.utp.medicalassistant.model.Rescuer;
+import pl.edu.utp.medicalassistant.model.RescuerStatus;
 import pl.edu.utp.medicalassistant.model.User;
 import pl.edu.utp.medicalassistant.model.web.Information;
 import pl.edu.utp.medicalassistant.model.web.InformationPerson;
@@ -42,8 +44,19 @@ public class WebInformationService {
 					User p = userRepository.findByUsername(e.getUserId()).get();
 					InformationPerson ip = new InformationPerson(p);
 					
+					List<InformationPerson> ips = new ArrayList<>();
+					if (e.getRescuers() != null) {
+						for (Rescuer r : e.getRescuers()) {
+							if (r.getStatus() == RescuerStatus.ASSIGNED) {
+								User pr = userRepository.findByUsername(r.getRescuerId()).get();
+								InformationPerson ipr = new InformationPerson(pr);
+								ips.add(ipr);
+							}
+						}
+					}
+					
 					InformationType type = e.getType().toInformationType();
-					Information information = new Information(e.getLocation().getLatitude(), e.getLocation().getAccuracy(), e.getType().toString(), e.getDescription(), type, "", ip, null);
+					Information information = new Information(e.getLocation().getLatitude(), e.getLocation().getAccuracy(), e.getType().toString(), e.getDescription(), type, "", ip, ips);
 					informations.add(information);
 					
 						
